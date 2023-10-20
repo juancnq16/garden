@@ -1,3 +1,12 @@
+<h1>Angular Router</h1>
+<nav>
+  <a routerLink="/chat" routerLinkActive="active" >Chat view</a>
+  <a routerLink="/garden" routerLinkActive="active" >garden view</a>
+</nav>
+<div [@routeAnimation]="getAnimationData()">
+  <router-outlet></router-outlet>
+</div>
+<!--
 
 <main>
   <header>
@@ -6,3 +15,13 @@
     <app-home></app-home>
   </section>
 </main>
+
+<h1>Angular Router</h1>
+<nav>
+  <a routerLink="/crisis-center" routerLinkActive="active" ariaCurrentWhenActive="page">Crisis Center</a>
+  <a routerLink="/heroes" routerLinkActive="active" ariaCurrentWhenActive="page">Heroes</a>
+</nav>
+<div [@routeAnimation]="getAnimationData()">
+  <router-outlet></router-outlet>
+</div>
+-->
