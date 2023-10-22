@@ -16,5 +16,5 @@ export const authGuard = () => {
   }
 
   // Redirect to the login page
-  return router.parseUrl('/home');
+  return router.parseUrl('/login');
 };

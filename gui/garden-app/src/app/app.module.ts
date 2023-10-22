@@ -14,6 +14,13 @@ import { ChatDetailComponent } from './chat/chat-detail/chat-detail.component';
 import { ChatModule } from './chat/chat.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
+import { LanSelectorComponent } from './translate/lan-selector/lan-selector.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxTranslateModule } from './translate/translate.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -23,7 +30,10 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    
+    MatFormFieldModule,
+    MatSelectModule,
+    MatIconModule,
+    NgxTranslateModule
   ],
   declarations: [
     AppComponent,

@@ -5,15 +5,22 @@ import { FormsModule } from '@angular/forms';
 
 import { HomeComponent } from './home/home.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { LoginComponent } from './login/login.component';
+import { MatCardModule } from '@angular/material/card';
+import { LanSelectorComponent } from '../translate/lan-selector/lan-selector.component';
+import { NgxTranslateModule } from '../translate/translate.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    MatCardModule,
+    NgxTranslateModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ]
 })
 export class AuthModule {}
