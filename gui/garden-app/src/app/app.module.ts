@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxTranslateModule } from './translate/translate.module';
 import { MatCardModule } from '@angular/material/card';
+import { httpInterceptorProviders } from './services/interceptor';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { MatCardModule } from '@angular/material/card';
     GardenViewComponent,
     PageNotFoundComponent
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

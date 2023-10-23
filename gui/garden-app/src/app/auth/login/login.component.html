@@ -10,7 +10,7 @@ style="margin-top: 20vh; height: 60vh; width: 40vw; margin-left: 30vw;">
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">{{ "login.password_label" | translate }}</label>
-              <input [type]="hide ? 'password' : 'text'" class="form-control" id="password" matInput formControlName="username">
+              <input [type]="hide ? 'password' : 'text'" class="form-control" id="password" matInput formControlName="password">
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="check" (change)="hide = !hide">

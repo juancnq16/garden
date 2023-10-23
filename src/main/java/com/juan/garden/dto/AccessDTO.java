@@ -14,6 +14,6 @@ import lombok.Setter;
 
 
 public class AccessDTO {
-    private String email;
+    private String username;
     private String token;
 }
