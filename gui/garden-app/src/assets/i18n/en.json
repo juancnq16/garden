@@ -1,6 +1,10 @@
 {
     "login":{
-        "header":"Log In"
+        "header":"Welcome",
+        "username_label":"Username",
+        "password_label":"Password",
+        "checkbox_label":"See password",
+        "submit_button":"Sign in"
     },
     "title": "Service feedback for {{company}}",
     "name": {

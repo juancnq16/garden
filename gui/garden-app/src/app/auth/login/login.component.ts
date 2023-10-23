@@ -9,7 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 })
 export class LoginComponent implements OnInit{
   
-  private form = this.fb.group({
+  form = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
     /**
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit{
     imports: [MatCardModule],
      */
   });
+  hide = true;
 
   constructor(private fb: FormBuilder){
   }
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit{
   }
   onSubmit() {
     console.log(this.form.value.username);
+    console.log(this.form.value.password);
   }
 
 }

@@ -1,8 +1,40 @@
-<mat-card>
-    
-        <app-lan-selector></app-lan-selector>
-    
-    <mat-card-header>
-        <mat-card-title>{{ "login.header" | translate }}</mat-card-title>
-    </mat-card-header>
+<app-lan-selector></app-lan-selector>
+<div class="card"
+style="margin-top: 20vh; height: 60vh; width: 40vw; margin-left: 30vw;">
+    <div class="card-body">
+        <h5 class="card-title">{{ "login.header" | translate }}</h5>
+        <form [formGroup]="form">
+            <div class="mb-3">
+              <label for="username" class="form-label">{{ "login.username_label" | translate }}</label>
+              <input type="text" class="form-control" id="username" matInput formControlName="username">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">{{ "login.password_label" | translate }}</label>
+              <input [type]="hide ? 'password' : 'text'" class="form-control" id="password" matInput formControlName="username">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="check" (change)="hide = !hide">
+              <label class="form-check-label" for="check" >{{ "login.checkbox_label" | translate }}</label>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">{{ "login.submit_button" | translate }}</button>
+        </form>
+    </div>
+</div>
+
+<!--
+<form [formGroup]="form">
+            <mat-form-field>
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+          
+            <mat-form-field>
+              <mat-label>Correo electrónico</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+          
+            <button type="submit" (click)="onSubmit()">Enviar</button>
+          </form>
+<mat-card style="margin-top: 20vh; height: 60vh; background-color: black; width: 40vw; margin-left: 30vw;">
 </mat-card>
+-->

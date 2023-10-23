@@ -1,5 +1,9 @@
 {
     "login":{
-        "header":"Ingresar"
+        "header":"Bienvenido",
+        "username_label":"Nombre de usuario",
+        "password_label":"Contraseña",
+        "checkbox_label":"Ver contraseña",
+        "submit_button":"Ingresar"
     }
 }
