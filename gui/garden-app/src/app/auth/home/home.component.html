@@ -4,8 +4,6 @@
         <div class="card card-container">
           <form
             name="form"
-            (ngSubmit)="f.form.valid && onSubmit()"
-            #f="ngForm"
             novalidate
           >
             <div class="form-group">
@@ -14,12 +12,9 @@
                 type="text"
                 class="form-control"
                 name="username"
-                [(ngModel)]="form.username"
                 required
                 minlength="3"
                 maxlength="20"
-                #username="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
               />
               <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
                 <div *ngIf="username.errors['required']">Username is required</div>
@@ -37,11 +32,6 @@
                 type="password"
                 class="form-control"
                 name="password"
-                [(ngModel)]="form.password"
-                required
-                minlength="6"
-                #password="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
               />
               <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
                 <div *ngIf="password.errors['required']">Password is required</div>

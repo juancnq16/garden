@@ -4,7 +4,7 @@ import { MessageService } from './home.component.service';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-home-1',
   templateUrl: './home.component.html',
   /*
   template: `

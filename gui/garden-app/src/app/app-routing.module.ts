@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 //import { ChatViewComponent } from './chat/chat-view/chat-view.component';
-import { GardenViewComponent } from './garden-view/garden-view.component';
+//import { GardenViewComponent } from './garden-view/garden-view.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
 import { authGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
   //{ path: 'chat', component: ChatViewComponent },
-  { path: 'garden', component: GardenViewComponent, canActivate: [authGuard] },
+  //{ path: 'garden', component: GardenViewComponent, canActivate: [authGuard] },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+    data: { preload: true }
+  },
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

@@ -13,7 +13,7 @@ export const authGuard = () => {
   const router = inject(Router);
   const storageService = inject(StorageService)
 
-  if (storageService.isLoggedIn) {
+  if (storageService.isLoggedIn()) {
     return true;
   }
 

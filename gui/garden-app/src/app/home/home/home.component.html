@@ -1,0 +1,17 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened>
+
+        Drawer content
+        <mat-nav-list>
+            <a [routerLink]="['chat/2']">lalala</a>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <p>
+            <mat-toolbar>
+              <span>My Application</span>
+            </mat-toolbar>
+        </p>
+        <router-outlet style="background-color: red;"></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

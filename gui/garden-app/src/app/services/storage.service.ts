@@ -7,7 +7,6 @@ import { AccessDTO } from '../interfaces/access-dto';
 export class StorageService {
 
   constructor() { }
-  isLoggedIn:Boolean = false;
 
 
 
@@ -17,7 +16,10 @@ export class StorageService {
   saveInfo(token:AccessDTO){
     window.sessionStorage.setItem('token',token.token)
     window.sessionStorage.setItem('username',token.username)
-    this.isLoggedIn=true;
+    window.sessionStorage.setItem('isLogedIn','true')
+  }
+  isLoggedIn(){
+    return window.sessionStorage.getItem('isLogedIn')
   }
 
 }

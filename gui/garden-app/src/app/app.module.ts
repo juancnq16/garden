@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './auth/home/home.component';
+//import { HomeComponent } from './auth/home/home.component';
 //import { HomeComponent } from './home/home.component';
 import { ChatViewComponent } from './chat/chat-view/chat-view.component';
-import { GardenViewComponent } from './garden-view/garden-view.component';
+//import { GardenViewComponent } from './garden-view/garden-view.component';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes, provideRouter, withComponentInputBinding } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ChatDetailComponent } from './chat/chat-detail/chat-detail.component';
 import { ChatModule } from './chat/chat.module';
@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxTranslateModule } from './translate/translate.module';
 import { MatCardModule } from '@angular/material/card';
 import { httpInterceptorProviders } from './services/interceptor';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   imports: [
@@ -34,11 +35,12 @@ import { httpInterceptorProviders } from './services/interceptor';
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
-    NgxTranslateModule
+    NgxTranslateModule,
+    HomeModule
   ],
   declarations: [
     AppComponent,
-    GardenViewComponent,
+    //GardenViewComponent,
     PageNotFoundComponent
   ],
   providers: [httpInterceptorProviders],
