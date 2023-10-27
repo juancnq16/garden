@@ -1,11 +1,20 @@
-<h2 mat-dialog-title>Install Angular</h2>
+
 <mat-dialog-content class="mat-typography">
     <ul>
-        <li *ngFor="let item of ">
-
+        <li *ngFor="let user of data.users">
+            <div class="container">
+                <div class="row align-items-start">
+                    <div class="col-8">
+                    <h2>{{user}}</h2>
+                    </div>
+                    <div class="col-4">
+                        <button (click)="parentMethod(user)"type="button" class="btn btn-secondary">Add</button>
+                    </div>
+                </div>
+            </div>
         </li>
     </ul>
-    <button (click)="parentMethod()"></button>
+    
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

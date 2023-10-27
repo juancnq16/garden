@@ -10,18 +10,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.juan.garden.services.CustomUserDetailsService;
 
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity //(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 
 @Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity
+/**
+ * Configurates application security enabling access control on 
+ * method level by JSR-250 especification allowing security roles 
+ * for access control
+ */
 public class SecurityConfig {
     
 	@Bean
@@ -37,6 +39,15 @@ public class SecurityConfig {
         this.userDetailsService = customUserDetailsService;
     }
 	@Bean
+    /**
+     * Builds the custom authentication manager setting up 
+     * the custom userDetailsService for spring security and
+     * the customizable password encoder
+     * @param http
+     * @param passwordEncoder
+     * @return
+     * @throws Exception
+     */
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder passwordEncoder)
             throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -44,11 +55,19 @@ public class SecurityConfig {
         return authenticationManagerBuilder.build();
     }
 	@Bean
+    /**
+     * Sets the filter chain to requiere authentication for requests
+     * sets routes that shall be excluded and adds the custom jwt token filter
+     * @param http
+     * @return
+     * @throws Exception
+     */
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/home/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/users/**").permitAll()
                 .antMatchers("/chat").permitAll()//hasAnyRole("USER","ADMIN")
                 //.antMatchers("/test").hasRole("ADMIN")
                 //.antMatchers("/test").access("hasRole('ROLE_ADMIN')")
@@ -59,81 +78,4 @@ public class SecurityConfig {
         return http.build();
 		 
     }
-    /*
-    @SuppressWarnings("deprecation")
-    @Bean
-    public NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
-
-	/*
-	/**public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-    return httpSecurity
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/token/**").permitAll()
-            .anyRequest().authenticated()
-        )
-        .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-        .httpBasic(Customizer.withDefaults())
-        .build();
-} */
 }
-/* 
-@Bean
-SecurityFilterChain web(HttpSecurity http) throws Exception {
-	http
-		.authorizeHttpRequests((authorize) -> authorize
-			.requestMatchers("/endpoint").hasAuthority('USER')
-			.anyRequest().authenticated()
-		)
-        // ...
-
-	return http.build();
-}
-/*
- * 
-	@Autowired private UserRepository userRepo;
-	
-	@Autowired private JwtTokenFilter jwtTokenFilter;
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(username -> userRepo.findByEmail(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found.")));
-	}
-
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
-		http.authorizeRequests()
-				.antMatchers("/auth/login", "/docs/**", "/users").permitAll()
-				.anyRequest().authenticated();
-		
-        http.exceptionHandling()
-                .authenticationEntryPoint(
-                    (request, response, ex) -> {
-                        response.sendError(
-                            HttpServletResponse.SC_UNAUTHORIZED,
-                            ex.getMessage()
-                        );
-                    }
-                );
-        
-		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-	}
-
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
- */

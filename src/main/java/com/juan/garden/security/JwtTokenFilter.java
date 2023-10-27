@@ -28,6 +28,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	private JwtUtil jwtUtil;
 
     @Override
+	/**
+	 * Implementation of filter method to create security context,
+	 * authenticate and authorize requests
+	 */
 	protected void doFilterInternal(HttpServletRequest request, 
 				HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -47,6 +51,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		setAuthenticationContext(token, request);
 		filterChain.doFilter(request, response);
 	}
+	/**
+	 * Creates UserDetails object with authorities for 
+	 * authotizing method access
+	 * @param token
+	 * User JWT token
+	 * @return
+	 * Returns UserDetails object 
+	 */
     private UserDetails getUserDetails(String token) {
         User userDetails = new User();
         Claims claims = jwtUtil.parseClaims(token);
@@ -56,14 +68,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         roles = roles.replace("[", "").replace("]", "");
         String[] roleNames = roles.split(",");
         for (String aRoleName : roleNames) {
-            userDetails.addRole(new Role("ROLE_"+aRoleName));
+            userDetails.addRole(new Role(aRoleName));
         }
         //String[] jwtSubject = subject.split(",");
         //userDetails.setId(Integer.parseInt(jwtSubject[0]));
-        userDetails.setUserName(subject);
+        userDetails.setUsername(subject);
      
         return userDetails;
     }
+	/**
+	 * Creates the security context for the authenticated user
+	 * @param token
+	 * @param request
+	 */
     private void setAuthenticationContext(String token, HttpServletRequest request) {
 		UserDetails userDetails = getUserDetails(token);
 
@@ -75,11 +92,21 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
+	/**
+	 * Gets the JWT token from the requests headers
+	 * @param request
+	 * @return
+	 */
     private String getAccessToken(HttpServletRequest request) {
 		String header = request.getHeader("Authorization");
 		String token = header.split(" ")[1].trim();
 		return token;
 	}
+	/**
+	 * Checks if the request has the authorization header
+	 * @param request
+	 * @return
+	 */
     private boolean hasAuthorizationBearer(HttpServletRequest request) {
 		String header = request.getHeader("Authorization");
 		if (ObjectUtils.isEmpty(header) || !header.startsWith("Bearer")) {

@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import com.juan.garden.model.Role;
-import com.juan.garden.model.User;
 import com.juan.garden.repositories.RoleRepository;
 
 @DataJpaTest
@@ -20,7 +19,6 @@ import com.juan.garden.repositories.RoleRepository;
 @Rollback(false)
 public class RoleRepositoryTests {
     @Autowired private RoleRepository repo;
-    @Autowired private RoleRepository userRepo;
      
     @Test
     public void testCreateRoles() {

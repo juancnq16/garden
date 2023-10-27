@@ -8,11 +8,9 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
@@ -23,25 +21,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.JoinColumn;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @Getter
 @Setter
-
 @Entity
+/**
+ * User entity implementing user details for authentication purposes
+ * defining username as primary key
+ */
 public class User implements UserDetails{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false, length = 50, unique = true)
-    private String userName;
+    private String username;
     private String password;
-    private String displayName;
+    private String contactList = "";
     @ManyToMany
     @JoinTable(
         name = "user_roles",
@@ -65,7 +64,7 @@ public class User implements UserDetails{
 
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.username;
         //throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
     }
     @Override
@@ -89,12 +88,3 @@ public class User implements UserDetails{
         throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
     }
 }
-/**
- * @ManyToMany
-    @JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
- */

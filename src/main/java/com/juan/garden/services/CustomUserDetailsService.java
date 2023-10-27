@@ -13,6 +13,9 @@ import com.juan.garden.model.User;
 import com.juan.garden.repositories.UserRepository;
 
 @Service
+/**
+ * Custom user details service for spring security
+ */
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
@@ -20,9 +23,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
     @Override
+    /**
+     * Implementation of required method for identifying users
+     */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        User user = userRepository.findByUserName(username);
+
+        User user = userRepository.findByUsername(username);
         List<String> roles = new ArrayList<>();
         for(Role role : user.getRoles()){
             roles.add(role.getName());

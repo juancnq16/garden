@@ -9,27 +9,44 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-//@Data
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.juan.garden.dto.ChatMessageDTO;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@Entity
+@Entity
 @Getter
 @Setter
+/**
+ * Entity for persisting messages
+ */
 public class ChatMessage {
-   /*
-   @Id
-   private String id;
-   private String chatId;
-   private String senderName;
-   private String recipientName;
-   private Date timestamp;
-   private MessageStatus status;
-    */
+   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Integer id;
    private String senderId;
    private String recipientId;
    private String content;
+   @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creationDate")
+    private Date creationDate;
+   /**
+    * Builder to persist a dto
+    * @param dto
+    */
+   public ChatMessage(ChatMessageDTO dto){
+      this.content = dto.getContent();
+      this.senderId = dto.getSenderId();
+      this.recipientId = dto.getRecipientId();
+   }
 }

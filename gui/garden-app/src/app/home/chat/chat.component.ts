@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs';
 
@@ -8,9 +8,12 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./chat.component.css']
 })
 
-export class ChatComponent implements AfterViewInit{
+export class ChatComponent implements AfterViewInit, AfterViewChecked{
   @Input() id = 0
   constructor(private route: ActivatedRoute){}
+  ngAfterViewChecked(): void {
+    console.log(this.id)
+  }
   ngAfterViewInit(): void {
     console.log(this.id)
   }

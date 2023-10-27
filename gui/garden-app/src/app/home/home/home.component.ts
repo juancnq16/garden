@@ -1,8 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { NgFor } from '@angular/common';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { HomeService } from 'src/app/services/home.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   searchTerm:string = ""
   /**
    * Boiler plate for tee component on sidebar
@@ -34,28 +37,51 @@ export class HomeComponent {
     node => node.children,
   );
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private homeService:HomeService) {
     var contacts = 'and,there,for'
-    var madeData:TreeNode[] = [{
-      name: 'Contacts',
-      children: [],
-    }] ;
-    for (var contact of contacts.split(',')){
-      madeData[0].children?.push({name: contact})
-    }
+    
   
-    this.dataSource.data = madeData;
+    //this.dataSource.data = madeData;
+  }
+  ngOnInit(): void {
+    const that = this
+    this.homeService.getFriendList().subscribe({
+      next(contacts) {
+        var madeData:TreeNode[] = [{
+          name: 'Contacts',
+          children: [],
+        }] ;
+        for (var contact of contacts){
+          madeData[0].children?.push({name: contact})
+        }
+        that.dataSource.data = madeData;
+      },error(err) {
+        console.log(err)
+      },
+    })
+    
   }
   search(event:KeyboardEvent){
     if(event.key == 'Enter'){
       console.log("searching.. ",this.searchTerm)
-      this.openDialog()
+      const that = this
+      this.homeService.searchUser(this.searchTerm).subscribe({
+        next(value){
+          that.openDialog(value)
+        },error(err){
+          console.log(err)
+        }
+      })
+      //this.openDialog()
     }
   }
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-  openDialog() {
+  openDialog(value:any) {
+    console.log(value)
     const dialogRef = this.dialog.open(DialogContentExampleDialog, {
-      
+      data:{
+        users:value
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -86,10 +112,19 @@ interface ExampleFlatNode {
   selector: 'dialog-dialog',
   templateUrl: 'friend-dialog.html',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [MatDialogModule, MatButtonModule, NgFor,MatSnackBarModule],
 })
 export class DialogContentExampleDialog {
-  parentMethod(){
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,private _snackBar: MatSnackBar) {}
+  parentMethod(user:string){
+    console.log("username ",user);
+    this.data.users.splice(this.data.users.indexOf(user),1)
+    this.openSnackBar(user)
   } 
+  openSnackBar(message: string) {
+    this._snackBar.open("Sent","OK")
+  }
+}
+export interface DialogData {
+  users:string[]
 }

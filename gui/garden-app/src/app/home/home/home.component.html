@@ -12,7 +12,7 @@
                   <!-- use a disabled button to provide padding for tree leaf 
                   <button mat-icon-button disabled style="background-color: purple;"></button>
                   -->
-                  <a [routerLink]="['chat/2']" style="text-decoration: none;color: black; padding-left: 1em;">{{node.name}}</a>
+                  <a [routerLink]="['chat/'+node.name]" style="text-decoration: none;color: black; padding-left: 1em;">{{node.name}}</a>
                 </mat-tree-node>
                 <!-- This is the tree node template for expandable nodes -->
                 <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >

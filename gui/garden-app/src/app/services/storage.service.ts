@@ -11,7 +11,7 @@ export class StorageService {
 
 
   getToken() {
-    throw new Error('Method not implemented.');
+    return window.sessionStorage.getItem('token')
   }
   saveInfo(token:AccessDTO){
     window.sessionStorage.setItem('token',token.token)

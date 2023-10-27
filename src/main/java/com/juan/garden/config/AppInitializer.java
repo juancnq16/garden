@@ -22,6 +22,9 @@ public class AppInitializer implements ApplicationRunner {
     private BCryptPasswordEncoder passwordEncoder;
  
     @Override
+    /**
+     * Creates default users and passwords for testing purposes
+     */
     public void run(ApplicationArguments args) throws Exception {
         // Verifica si el usuario administrador ya existe
         if (!roleRepository.existsByName("ROLE_ADMIN")) {
@@ -34,14 +37,27 @@ public class AppInitializer implements ApplicationRunner {
             admin.setName("ROLE_USER");
             roleRepository.save(admin);
         }
-        if (!userRepository.existsByUserName("admin") && roleRepository.existsByName("ROLE_ADMIN")) {
+        if (!userRepository.existsByUsername("admin") && roleRepository.existsByName("ROLE_ADMIN")) {
             User adminUser = new User();
-            adminUser.setUserName("admin");
+            adminUser.setUsername("admin");
             adminUser.setPassword(passwordEncoder.encode("12345")); 
             Role adminRole = roleRepository.findByName("ROLE_ADMIN");
             adminUser.addRole(adminRole);
             userRepository.save(adminUser);
         }
+        User tempUser = new User();
+        tempUser.setUsername("user 1");
+        tempUser.setPassword(passwordEncoder.encode("12345"));
+        Role userRole = roleRepository.findByName("ROLE_USER");
+        User user2 = new User();
+        user2.setUsername("user 5");
+        user2.addRole(userRole);
+        user2.setPassword(passwordEncoder.encode("12345"));
+        userRepository.save(user2);
+        tempUser.setUsername("user 2");
+        userRepository.save(tempUser);
+        tempUser.setUsername("user 3");
+        userRepository.save(tempUser);
     }
 
 }

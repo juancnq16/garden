@@ -43,9 +43,9 @@ export class LoginComponent implements OnInit{
           that.moveOn()
         },error(err) {
           console.log(err)
-          that.router.navigate(['/home'])
+          //that.router.navigate(['/home'])
           //that.storageService.isLoggedIn = true;
-          window.sessionStorage.setItem('isLogedIn','true')
+          //window.sessionStorage.setItem('isLogedIn','true')
         },
       })
     }

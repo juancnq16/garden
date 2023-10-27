@@ -23,6 +23,7 @@ import { NgxTranslateModule } from './translate/translate.module';
 import { MatCardModule } from '@angular/material/card';
 import { httpInterceptorProviders } from './services/interceptor';
 import { HomeModule } from './home/home.module';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { HomeModule } from './home/home.module';
     MatSelectModule,
     MatIconModule,
     NgxTranslateModule,
-    HomeModule
+    HomeModule,
+    MatSnackBarModule
   ],
   declarations: [
     AppComponent,
