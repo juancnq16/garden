@@ -8,6 +8,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { ChatComponent } from './chat/chat.component';
 import { GardenComponent } from './garden/garden.component';
 import {MatListModule} from '@angular/material/list';
+import {MatTreeModule} from '@angular/material/tree';
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -21,7 +29,15 @@ import {MatListModule} from '@angular/material/list';
     HomeRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule
   ]
 })
 export class HomeModule { }

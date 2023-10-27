@@ -1,17 +1,54 @@
 <mat-drawer-container class="example-container">
-    <mat-drawer mode="side" opened>
-
-        Drawer content
+    <mat-drawer class="side-drawer" mode="side" opened disableClose=true>
+        <p>Drawer content</p>
+        <p><a [routerLink]="['chat/2']" style="text-decoration: none;color: black;">lalala</a></p>
+        
         <mat-nav-list>
-            <a [routerLink]="['chat/2']">lalala</a>
+            <!--   -->
+            
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                  <!-- use a disabled button to provide padding for tree leaf 
+                  <button mat-icon-button disabled style="background-color: purple;"></button>
+                  -->
+                  <a [routerLink]="['chat/2']" style="text-decoration: none;color: black; padding-left: 1em;">{{node.name}}</a>
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
+                  <button mat-icon-button matTreeNodeToggle style="background-color: red;"
+                          [attr.aria-label]="'Toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror" style="background-color: blue;">
+                      {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                  </button>
+                  {{node.name}}
+                  
+                </mat-tree-node>
+                
+            </mat-tree>
         </mat-nav-list>
+        
     </mat-drawer>
-    <mat-drawer-content>
-        <p>
-            <mat-toolbar>
-              <span>My Application</span>
-            </mat-toolbar>
-        </p>
+    <mat-drawer-content class="content">
+        <mat-toolbar>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <span>My Application</span>
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <mat-form-field >
+                            <input matInput type="text" [(ngModel)]="searchTerm" (keypress)="search($event)">
+                            <mat-icon matPrefix>search</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-toolbar>
         <router-outlet style="background-color: red;"></router-outlet>
     </mat-drawer-content>
+    
 </mat-drawer-container>
