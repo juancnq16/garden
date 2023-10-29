@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgFor } from '@angular/common';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { HomeService } from 'src/app/services/home.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -37,12 +39,12 @@ export class HomeComponent implements OnInit {
     node => node.children,
   );
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  constructor(public dialog: MatDialog, private homeService:HomeService) {
-    var contacts = 'and,there,for'
-    
-  
-    //this.dataSource.data = madeData;
-  }
+  constructor(
+    private dialog: MatDialog,
+    private homeService:HomeService,
+    private storageService:StorageService,
+    private router:Router
+  ){}
   ngOnInit(): void {
     const that = this
     this.homeService.getFriendList().subscribe({
@@ -72,8 +74,11 @@ export class HomeComponent implements OnInit {
           console.log(err)
         }
       })
-      //this.openDialog()
     }
+  }
+  logOut(){
+    this.storageService.logOut();
+    this.router.navigate(['/login'])
   }
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
   openDialog(value:any) {
@@ -115,11 +120,22 @@ interface ExampleFlatNode {
   imports: [MatDialogModule, MatButtonModule, NgFor,MatSnackBarModule],
 })
 export class DialogContentExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,private _snackBar: MatSnackBar) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private _snackBar: MatSnackBar,
+    private homeService:HomeService
+  ) {}
   parentMethod(user:string){
     console.log("username ",user);
-    this.data.users.splice(this.data.users.indexOf(user),1)
-    this.openSnackBar(user)
+    const that = this
+    this.homeService.addFriend(user).subscribe({
+      next(value) {
+        that.data.users.splice(that.data.users.indexOf(user),1)
+        that.openSnackBar(user)
+      },error(err) {
+        console.log(err)
+      },
+    })
   } 
   openSnackBar(message: string) {
     this._snackBar.open("Sent","OK")

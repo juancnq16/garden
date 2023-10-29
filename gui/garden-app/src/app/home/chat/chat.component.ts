@@ -12,10 +12,10 @@ export class ChatComponent implements AfterViewInit, AfterViewChecked{
   @Input() id = 0
   constructor(private route: ActivatedRoute){}
   ngAfterViewChecked(): void {
-    console.log(this.id)
+    //console.log(this.id)
   }
   ngAfterViewInit(): void {
-    console.log(this.id)
+    //console.log(this.id)
   }
   ngOnInit() {
     console.log(this.id)

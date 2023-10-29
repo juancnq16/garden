@@ -10,7 +10,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class Interceptor implements HttpInterceptor {
     //, private router: Router
     
-    constructor(private storageService: StorageService, private router:Router,private _snackBar: MatSnackBar) { 
+    constructor(
+      private storageService: StorageService, 
+      private router:Router,
+      private _snackBar: MatSnackBar
+    ) { 
       this.router = inject(Router);
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AccessDTO } from '../../interfaces/access-dto';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit{
     private fb: FormBuilder, 
     private authService:AuthService,
     private storageService:StorageService,
-    private router:Router){
+    private router:Router,
+    private _snackBar: MatSnackBar
+  ){
       this.router = inject(Router);
   }
   ngOnInit(): void {
@@ -42,6 +45,9 @@ export class LoginComponent implements OnInit{
           that.storageService.saveInfo(value as AccessDTO);
           that.moveOn()
         },error(err) {
+          if (err.status === 400){
+            that._snackBar.open("Wrong username or password","OK")
+          }
           console.log(err)
           //that.router.navigate(['/home'])
           //that.storageService.isLoggedIn = true;

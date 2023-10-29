@@ -5,9 +5,9 @@
     height: 100vh;
   }
   .side-drawer{
-    padding: 20px;
-    padding-right: 60px;
+    padding: 30px;
     width: auto;
+    justify-content: center;
   }
  
 ::ng-deep .mat-form-field-outline-start {

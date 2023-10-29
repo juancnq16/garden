@@ -21,5 +21,8 @@ export class StorageService {
   isLoggedIn(){
     return window.sessionStorage.getItem('isLogedIn')
   }
+  logOut(){
+    window.sessionStorage.clear()
+  }
 
 }

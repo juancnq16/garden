@@ -20,4 +20,7 @@ export class HomeService {
     getFriendList(){
         return this.http.get<string[]>(USER_API+"/getFriendList")
     }
+    addFriend(friend:string){
+      return this.http.post<string[]>(USER_API+"/addFriend",friend)
+    }
   }
