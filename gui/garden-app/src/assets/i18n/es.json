@@ -5,5 +5,8 @@
         "password_label":"Contraseña",
         "checkbox_label":"Ver contraseña",
         "submit_button":"Ingresar"
+    },
+    "home":{
+      "welcome":"Welcome"
     }
 }

@@ -1,1 +1,41 @@
-<p>chat works!</p>
+<div class="chat-container">
+    <div class="container" style="margin-bottom: 10vh;">
+        <div class="row align-items-start" *ngFor="let message of messages">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body">
+                        {{message}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <!-- <label for="username" class="form-label">{{ "login.username_label" | translate }}</label>  -->
+        <input type="text" 
+            autocomplete="off"
+            class="form-control" 
+            id="username" 
+            style="max-height: 10vh;"
+            (keypress)="sendMessage($event)"
+            matInput 
+            [(ngModel)]="currentMessage">
+    </div>
+</div>
+<!--
+<ul style="margin-bottom: 10vh;">
+        <li *ngFor="let message of messages">
+            <div class="container">
+                <div class="row align-items-start" >
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-body">
+                                {{message}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+-->

@@ -1,0 +1,14 @@
+
+.chat-container{
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: black;
+    /*overflow: scroll;*/
+}
+.chat-container input{
+    bottom: 0;
+    position: absolute;
+}

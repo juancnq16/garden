@@ -24,5 +24,8 @@ export class StorageService {
   logOut(){
     window.sessionStorage.clear()
   }
+  getUsername(){
+    return window.sessionStorage.getItem('username')
+  }
 
 }

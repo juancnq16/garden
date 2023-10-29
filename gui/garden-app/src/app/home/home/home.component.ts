@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule} from '@angular/material/dialog';
@@ -8,6 +8,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { HomeService } from 'src/app/services/home.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,9 @@ import { Router } from '@angular/router';
 })
 
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   searchTerm:string = ""
+  username:string = ""
   /**
    * Boiler plate for tee component on sidebar
    */
@@ -43,9 +45,18 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog,
     private homeService:HomeService,
     private storageService:StorageService,
-    private router:Router
+    private router:Router,
+    private translate: TranslateService
   ){}
+  ngAfterViewInit(): void {
+    this.username = this.storageService.getUsername()+"";
+  }
   ngOnInit(): void {
+    /**
+    this.translate.get("home.welcome").subscribe((successMessage: string) => {
+      alert(successMessage);
+    }); 
+     */
     const that = this
     this.homeService.getFriendList().subscribe({
       next(contacts) {
@@ -90,7 +101,9 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.ngOnInit()
+      }
     });
   }
   parentMethod(){
@@ -99,7 +112,7 @@ export class HomeComponent implements OnInit {
 }
 
 /**
-   * Boiler plate for tee component on sidebar
+  interface for nav bar contact tree
 */
 interface TreeNode {
   name: string;
@@ -123,15 +136,15 @@ export class DialogContentExampleDialog {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _snackBar: MatSnackBar,
-    private homeService:HomeService
+    private homeService:HomeService,
   ) {}
   parentMethod(user:string){
-    console.log("username ",user);
     const that = this
     this.homeService.addFriend(user).subscribe({
       next(value) {
         that.data.users.splice(that.data.users.indexOf(user),1)
         that.openSnackBar(user)
+
       },error(err) {
         console.log(err)
       },

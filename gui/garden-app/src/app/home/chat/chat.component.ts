@@ -10,7 +10,17 @@ import { switchMap } from 'rxjs';
 
 export class ChatComponent implements AfterViewInit, AfterViewChecked{
   @Input() id = 0
-  constructor(private route: ActivatedRoute){}
+  currentMessage:string = ""
+  messages:string[] = ['sadfa','hello'];
+  constructor(private route: ActivatedRoute){
+    
+  }
+  sendMessage(event:KeyboardEvent){
+    if(event.key == 'Enter'){
+      this.messages.push(this.currentMessage)
+      this.currentMessage = ""
+    }
+  }
   ngAfterViewChecked(): void {
     //console.log(this.id)
   }

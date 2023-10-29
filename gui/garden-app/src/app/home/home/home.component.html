@@ -1,9 +1,9 @@
 <mat-drawer-container class="example-container">
     <mat-drawer class="side-drawer" mode="side" opened disableClose=true>
-        <p>Drawer content</p>
+        <p>{{ "home.welcome" | translate }} {{username}}</p>
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                <a [routerLink]="['chat/'+node.name]" style="text-decoration: none;color: black; padding-left: 1em;">{{node.name}}</a>
+                <a [routerLink]="['chat/'+node.name]" [ngClass]="{'disabled' : node.name=='Contacts'}">{{node.name}}</a>
             </mat-tree-node>
             <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
                 <button mat-icon-button matTreeNodeToggle
@@ -15,14 +15,23 @@
                 {{node.name}}
             </mat-tree-node>
         </mat-tree>
-        <div style="width: 80%;position: absolute; bottom: 30px; left: 30px;">
-            <button mat-button style="width: 100%;padding: 0;justify-content: left;" (click)="logOut()">
+        <div class="side-drawer-bottom">
+            <a [routerLink]="['help/']">
+                help
+            </a>
+            <br>
+            <a (click)="logOut()" style="cursor: pointer;">
+                logout
+            </a>
+            <!--
+            <button mat-button style="padding: 0; margin-top:30px;justify-content: left; display: flex;" (click)="logOut()">
                 Basic
             </button>
+            -->
         </div>
     </mat-drawer>
     <mat-drawer-content class="content">
-        <mat-toolbar>
+        <mat-toolbar class="toolbar-class">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col">
@@ -31,7 +40,7 @@
                     <div class="col">
                     </div>
                     <div class="col">
-                        <mat-form-field >
+                        <mat-form-field subscriptSizing="dynamic">
                             <input matInput type="text" [(ngModel)]="searchTerm" (keypress)="search($event)">
                             <mat-icon matPrefix>search</mat-icon>
                         </mat-form-field>
@@ -39,7 +48,7 @@
                 </div>
             </div>
         </mat-toolbar>
-        <router-outlet style="background-color: red;"></router-outlet>
+        <router-outlet></router-outlet>
     </mat-drawer-content>
     
 </mat-drawer-container>

@@ -53,10 +53,8 @@ public class AppInitializer implements ApplicationRunner {
         user2.setUsername("user 5");
         user2.addRole(userRole);
         user2.setPassword(passwordEncoder.encode("12345"));
+        tempUser.addRole(userRole);
         userRepository.save(user2);
-        tempUser.setUsername("user 2");
-        userRepository.save(tempUser);
-        tempUser.setUsername("user 3");
         userRepository.save(tempUser);
     }
 

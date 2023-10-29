@@ -1,26 +1,29 @@
 
-  .content{
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  .side-drawer{
-    padding: 30px;
-    width: auto;
-    justify-content: center;
-  }
- 
-::ng-deep .mat-form-field-outline-start {
-  border-radius: 28px 0 0 28px !important;
-  min-width: 28px !important;
+.content{
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
-
-::ng-deep .mat-form-field-outline-end {
-  border-radius: 0 28px 28px 0 !important;
-  min-width: 28px !important;
+.side-drawer{
+  padding: 30px;
+  width: 20vw;
+  justify-content: center;
 }
+.side-drawer-bottom{
+  position: absolute; 
+  bottom: 30px; 
+  left: 30px;
+}
+.toolbar-class{
+  height: 20vh;
+}
+.nav-nodes{
 
-/* Add padding to move the label and input into the center to prevent overlapping the rounded border */
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
-  padding: 0 32px !important;
+}
+.disabled{
+  pointer-events: none;
+}
+a{
+  text-decoration: none;
+  color: black;
 }
