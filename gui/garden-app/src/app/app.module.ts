@@ -3,33 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-//import { HomeComponent } from './auth/home/home.component';
-//import { HomeComponent } from './home/home.component';
-import { ChatViewComponent } from './chat/chat-view/chat-view.component';
-//import { GardenViewComponent } from './garden-view/garden-view.component';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, Routes, provideRouter, withComponentInputBinding } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ChatDetailComponent } from './chat/chat-detail/chat-detail.component';
-import { ChatModule } from './chat/chat.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
-import { LanSelectorComponent } from './translate/lan-selector/lan-selector.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgxTranslateModule } from './translate/translate.module';
-import { MatCardModule } from '@angular/material/card';
 import { httpInterceptorProviders } from './services/interceptor';
 import { HomeModule } from './home/home.module';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    ChatModule,
     AuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -42,18 +32,15 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
   ],
   declarations: [
     AppComponent,
-    //GardenViewComponent,
     PageNotFoundComponent
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(router: Router) {
-    // Use a custom replacer to display function names in the route configs
-    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
-
-    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  constructor(
+    router: Router
+  ) {
   }
 }
 
