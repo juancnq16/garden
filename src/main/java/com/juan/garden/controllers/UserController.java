@@ -25,15 +25,16 @@ import com.juan.garden.services.UserService;
 public class UserController {
     @Autowired private UserService userService;
 
-    @RolesAllowed("USER")
+    @RolesAllowed({"USER","ADMIN"})
     @ResponseBody
     @RequestMapping(value = "/search",method = RequestMethod.POST)
-    public List<String> queryUser(@RequestBody String username){
+    public List<String> queryUser(Authentication auth,@RequestBody String username){
         List<User> usersList = userService.queryUser(username);
         List<String> result = new ArrayList<>();
         for(User usr : usersList){
             result.add(usr.getUsername());
         } 
+        result.remove(auth.getName());
         return result;
     }
     @ResponseBody

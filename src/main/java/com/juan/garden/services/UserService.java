@@ -29,7 +29,7 @@ public class UserService {
             usr.setContactList(usr.getContactList()+";"+friend);
             userRepository.save(usr);
             User friendUser = userRepository.findByUsername(friend);
-            friendUser.setContactList(friendUser.getContactList()+";"+usr);
+            friendUser.setContactList(friendUser.getContactList()+";"+usr.getUsername());
             userRepository.save(friendUser);
         }
         List<String> list = new LinkedList<String>(Arrays.asList(usr.getContactList().split(";")));

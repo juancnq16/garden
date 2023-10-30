@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private translate: TranslateService
   ){}
   ngAfterViewInit(): void {
-    this.username = this.storageService.getUsername()+"";
+    //this.username = this.storageService.getUsername()+"";
   }
   ngOnInit(): void {
     /**
@@ -144,7 +144,7 @@ export class DialogContentExampleDialog {
       next(value) {
         that.data.users.splice(that.data.users.indexOf(user),1)
         that.openSnackBar(user)
-
+        
       },error(err) {
         console.log(err)
       },

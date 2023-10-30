@@ -4,17 +4,13 @@ import { Interceptor } from './interceptor';
 
 const USER_API = 'http://localhost:8080/users';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
     constructor(private http: HttpClient){
     }
-    searchUser(username:String){
+    searchUser(username:string){
       return this.http.post<string[]>(USER_API+'/search',username)
     }
     getFriendList(){
@@ -23,4 +19,4 @@ export class HomeService {
     addFriend(friend:string){
       return this.http.post<string[]>(USER_API+"/addFriend",friend)
     }
-  }
+}
