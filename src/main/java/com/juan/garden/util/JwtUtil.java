@@ -19,6 +19,9 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
+/*
+ * Utilities for jwt token management
+ */
 public class JwtUtil {
     private final String secret_key = "mysecretkey";
     private long accessTokenValidity = 60*60*1000;
@@ -30,20 +33,14 @@ public class JwtUtil {
 
     public JwtUtil(){
         this.jwtParser = Jwts.parser().setSigningKey(secret_key);
-    }/*
-    public String createToken(User user) {
-        Claims claims = Jwts.claims().setSubject(user.getUsername());
-        claims.put("displayName",user.getUsername());
-        //claims.put("lastName",user.getLastName());
-        claims.put("roles", user);
-        Date tokenCreateTime = new Date();
-        Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
-        return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(tokenValidity)
-                .signWith(SignatureAlgorithm.HS256, secret_key)
-                .compact();
-    } */
+    }
+    /**
+     * Creates a token with class instruction
+     * @param userAuth
+     * 
+     * @return
+     * Returns token string
+     */
     public String createToken(Authentication userAuth) {
         try {
             Claims claims = Jwts.claims().setSubject(userAuth.getName());
@@ -61,6 +58,13 @@ public class JwtUtil {
         }
         
     }
+    /**
+     * Validates jwt access token 
+     * @param token
+     * Token string
+     * @return
+     * returns boolean indicating if the token is valid or not
+     */
     public boolean validateAccessToken(String token) {
 		try {
 			Jwts.parser().setSigningKey(secret_key).parseClaimsJws(token);
@@ -79,12 +83,20 @@ public class JwtUtil {
 		
 		return false;
 	}
+    /*
+     * Converts token claims
+     */
     public Claims parseClaims(String token) {
 		return Jwts.parser()
 				.setSigningKey(secret_key)
 				.parseClaimsJws(token)
 				.getBody();
 	}
+    /**
+     * Returns token subject
+     * @param token
+     * @return
+     */
     public String getSubject(String token) {
 		return parseClaims(token).getSubject();
 	}

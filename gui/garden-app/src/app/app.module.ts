@@ -15,6 +15,8 @@ import { NgxTranslateModule } from './translate/translate.module';
 import { httpInterceptorProviders } from './services/interceptor';
 import { HomeModule } from './home/home.module';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { StompService } from './services/stomp.service';
+import { rxStompServiceFactory } from './config/stompFactory';
 
 @NgModule({
   imports: [
@@ -34,7 +36,12 @@ import { MatSnackBarModule} from '@angular/material/snack-bar';
     AppComponent,
     PageNotFoundComponent
   ],
-  providers: [httpInterceptorProviders],
+  providers: [{
+        provide: StompService,
+        useFactory: rxStompServiceFactory,
+      },
+      httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
@@ -43,32 +50,3 @@ export class AppModule {
   ) {
   }
 }
-
-/**
- * 
-@NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HeroesModule,
-    AuthModule,
-    AppRoutingModule,
-  ],
-  declarations: [
-    AppComponent,
-    ComposeMessageComponent,
-    PageNotFoundComponent
-  ],
-  bootstrap: [ AppComponent ]
-})
-export class AppModule {
-  // Diagnostic only: inspect router configuration
-  constructor(router: Router) {
-    // Use a custom replacer to display function names in the route configs
-    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
-
-    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
-  }
-}
- */

@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
-import { LanSelectorComponent } from '../translate/lan-selector/lan-selector.component';
 import { NgxTranslateModule } from '../translate/translate.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';

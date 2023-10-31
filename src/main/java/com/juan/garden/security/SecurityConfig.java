@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/users/**").permitAll()
                 .antMatchers("/chat/**").permitAll()
-                .antMatchers("/ws/**").permitAll()
+                .antMatchers("/ws/**").permitAll() //web.ignoring().antMatchers("/authFailure");
                 //.antMatchers("/chat").permitAll()//hasAnyRole("USER","ADMIN")
                 //.antMatchers("/test").hasRole("ADMIN")
                 //.antMatchers("/test").access("hasRole('ROLE_ADMIN')")

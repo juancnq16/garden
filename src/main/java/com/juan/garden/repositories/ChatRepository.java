@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.juan.garden.model.ChatMessage;
 
 public interface ChatRepository extends JpaRepository <ChatMessage,Integer>{
-    @Query("SELECT m FROM ChatMessage m WHERE m.senderId = :sendId AND m.recipientId = :recId")
+    @Query("SELECT m FROM ChatMessage m WHERE m.senderId in (:sendId,:recId) AND m.recipientId in (:recId,:sendId)")
     List<ChatMessage> findAllByChat(@Param("sendId") String sendId,@Param("recId") String recdId );
     
 }

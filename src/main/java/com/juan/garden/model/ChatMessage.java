@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.juan.garden.dto.ChatMessageDTO;
 
 @AllArgsConstructor
@@ -32,6 +33,7 @@ import com.juan.garden.dto.ChatMessageDTO;
  */
 public class ChatMessage {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @JsonIgnore
    private Integer id;
    private String senderId;
    private String recipientId;

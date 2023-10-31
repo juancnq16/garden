@@ -13,6 +13,7 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -20,8 +21,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-import org.springframework.messaging.MessageChannel;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.messaging.converter.MessageConverter;
@@ -30,37 +29,30 @@ import org.springframework.messaging.converter.MessageConverter;
 @EnableWebSocketMessageBroker
 public class WebSoketConfiguration implements WebSocketMessageBrokerConfigurer {
     @Override
+    /**Sets up the /user broker for delivering messages
+     *  and the app destination prefix for message sending */
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker( "/user");
         config.setApplicationDestinationPrefixes("/app");
         config.setUserDestinationPrefix("/user");
     }
     @Override
+    /**
+     * Secures the connection validating token
+     * more security can be added here at socket/channel level
+     */
 	public void configureClientInboundChannel(ChannelRegistration registration) {
-		registration.interceptors(new ChannelInterceptor() {
-			@Override
-			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				StompHeaderAccessor accessor =
-						MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-				if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-                    List<String> token = accessor.getNativeHeader("login");
-                    for(String header :token){
-                        System.out.println(header);
-                    }
-					//Authentication user = ... ; // access authentication header(s)
-					//accessor.setUser(user);
-				}
-				return message;
-			}
-		});
+        registration.interceptors(new CustomChannelInterceptor());
 	}
 
     @Override
+    /**
+     * Registry socket endpoint to create and upgrade the conection 
+     */
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry
-                .addEndpoint("/ws")
-                .setAllowedOriginPatterns("*")
-                .withSockJS();
+        registry.addEndpoint("/ws")
+                .setAllowedOrigins("*")
+        ;
     }
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -69,7 +61,7 @@ public class WebSoketConfiguration implements WebSocketMessageBrokerConfigurer {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedMethods("*");
-                        //.allowedOriginPatterns("https://*");
+                        
             }
         };
     }

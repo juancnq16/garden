@@ -1,17 +1,23 @@
 <div class="chat-container">
-    <div class="container" style="margin-bottom: 10vh;">
-        <div class="row align-items-start" *ngFor="let message of messages">
-            <div class="col-8 my-3">
-                <div class="card">
-                    <div class="card-body">
-                        {{message}}
+    <div class="container" style="margin-bottom: 10vh;" >
+        <div *ngFor="let message of messages" style="width: 100%;"  >
+            <div [ngClass]="{'row justify-content-start' : message.senderId==me,'row justify-content-end': message.recipientId==me}"class="" >
+                <div class="col-8 my-3 ">
+                    <div class="card">
+                        <div class="card-body">
+                            {{message.content}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="mb-3">
-        <!-- <label for="username" class="form-label">{{ "login.username_label" | translate }}</label>  -->
+        <!--
+            <div [ngClass]="{'row align-items-start' : message.senderId==me,'row align-items-end': message.recipientId==me}"class="" > [
+            ngClass]="{'row align-items-start': message.senderId==me, 'second': true, 'third': false}"
+            <label for="username" class="form-label">{{ "login.username_label" | translate }}</label> 
+        [ngClass]="{'disabled' : node.sen=='Contacts'}"  -->
         <input type="text" 
             autocomplete="off"
             class="form-control" 
