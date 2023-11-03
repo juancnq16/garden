@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-lan-selector',
   templateUrl: './lan-selector.component.html',
-  styleUrls: ['./lan-selector.component.css']
+  styleUrls: ['./lan-selector.component.scss']
 })
 export class LanSelectorComponent {
   siteLanguage = 'English';
