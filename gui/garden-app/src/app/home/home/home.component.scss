@@ -8,6 +8,15 @@
   padding: 30px;
   width: 20vw;
   justify-content: center;
+  background-color: #202123;
+}
+mat-tree > * { 
+  background-color: #202123;
+  color:#d8d9db;
+  font-weight: 500;
+}
+.custom-a{
+  color: white;
 }
 .side-drawer-bottom{
   position: absolute; 
@@ -16,6 +25,7 @@
 }
 .toolbar-class{
   height: 20vh;
+  background-color: white;
 }
 .nav-nodes{
 

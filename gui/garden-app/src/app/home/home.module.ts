@@ -17,6 +17,9 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule} from '@angular/material/dialog';
 import { NgxTranslateModule } from '../translate/translate.module';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { NgxTranslateModule } from '../translate/translate.module';
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    NgxTranslateModule
+    NgxTranslateModule,
+    MatGridListModule,
+    MatCardModule,
+    MatProgressBarModule
   ]
 })
 export class HomeModule { }

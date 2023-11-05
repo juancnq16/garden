@@ -1,26 +1,28 @@
 <mat-drawer-container class="example-container">
     <mat-drawer class="side-drawer" mode="side" opened disableClose=true>
-        <p>{{ "home.welcome" | translate }} {{username}}</p>
+        <p class="custom-a">{{ "home.welcome" | translate }} {{username}}</p>
+        <p class="custom-a" style="cursor: pointer;" [routerLink]="['/']">{{ "home.welcome" | translate }} {{username}}</p>
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                <a [routerLink]="['chat/'+node.name]" [ngClass]="{'disabled' : node.name=='Contacts'}">{{node.name}}</a>
+                <a [routerLink]="['chat/'+node.name]" [ngClass]="{'disabled' : node.name=='Contacts'}" class="custom-a">{{node.name}}</a>
             </mat-tree-node>
-            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
+            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding class="align-items-center" >
                 <button mat-icon-button matTreeNodeToggle
                         [attr.aria-label]="'Toggle ' + node.name">
                     <mat-icon class="mat-icon-rtl-mirror">
                         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                     </mat-icon>
                 </button>
-                {{node.name}}
+                <p style="margin: 0;">{{node.name}}</p>
+                
             </mat-tree-node>
         </mat-tree>
         <div class="side-drawer-bottom">
-            <a [routerLink]="['help/']">
+            <a [routerLink]="['help/']" class="custom-a">
                 help
             </a>
             <br>
-            <a (click)="logOut()" style="cursor: pointer;">
+            <a (click)="logOut()" style="cursor: pointer;" class="custom-a">
                 logout
             </a>
             <!--
