@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container">
     <mat-drawer class="side-drawer" mode="side" opened disableClose=true>
         <p class="custom-a">{{ "home.welcome" | translate }} {{username}}</p>
-        <p class="custom-a" style="cursor: pointer;" [routerLink]="['/']">{{ "home.welcome" | translate }} {{username}}</p>
+        <p class="custom-a" style="cursor: pointer;" [routerLink]="['/']">Home</p>
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
                 <a [routerLink]="['chat/'+node.name]" [ngClass]="{'disabled' : node.name=='Contacts'}" class="custom-a">{{node.name}}</a>
