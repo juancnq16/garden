@@ -22,3 +22,6 @@ Its a REST API built in Spring Boot serving as a back end for an Angular SPA
 * Jenkins Pipeline
 * Docker image 
 * Mysql Database
+
+## Interface
+![screenshot](SS.jpeg)
